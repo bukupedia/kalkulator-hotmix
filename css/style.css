@@ -1,0 +1,15 @@
+body {
+    background-color: #f5f7fa;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+h3 {
+    font-weight: 600;
+}
+
+#hasilBox strong {
+    color: #0d6efd;
+}
