@@ -1,6 +1,14 @@
 // Ambil elemen form
 const form = document.getElementById("hotmixForm");
 
+// Fungsi normalisasi angka:
+// - mengganti koma menjadi titik
+// - menghapus spasi
+function normalizeNumber(value) {
+    if (typeof value !== "string") return value;
+    return value.replace(/\s/g, "").replace(",", ".");
+}
+
 // Fungsi validasi angka
 function isValidNumber(value) {
     return value !== "" && !isNaN(value) && Number(value) >= 0;
@@ -9,16 +17,23 @@ function isValidNumber(value) {
 form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    // Ambil nilai input
+    // Ambil elemen input
     const luasInput = document.getElementById("luas");
     const bjInput = document.getElementById("bj");
     const tebalInput = document.getElementById("tebal");
     const wasteInput = document.getElementById("waste");
 
-    const luas = parseFloat(luasInput.value);
-    const bj = parseFloat(bjInput.value);
-    const tebalCm = parseFloat(tebalInput.value);
-    const waste = parseFloat(wasteInput.value);
+    // Normalisasi input (koma -> titik)
+    const luasVal = normalizeNumber(luasInput.value);
+    const bjVal = normalizeNumber(bjInput.value);
+    const tebalVal = normalizeNumber(tebalInput.value);
+    const wasteVal = normalizeNumber(wasteInput.value);
+
+    // Konversi ke angka
+    const luas = parseFloat(luasVal);
+    const bj = parseFloat(bjVal);
+    const tebalCm = parseFloat(tebalVal);
+    const waste = parseFloat(wasteVal);
 
     let isValid = true;
 
@@ -59,7 +74,7 @@ form.addEventListener("submit", function (e) {
     const tambahanWaste = kebutuhanAwal * (waste / 100);
     const totalHotmix = kebutuhanAwal + tambahanWaste;
 
-    // Tampilkan hasil dengan 2 desimal
+    // Tampilkan hasil (2 desimal)
     document.getElementById("hasilAwal").textContent = kebutuhanAwal.toFixed(2);
     document.getElementById("hasilWaste").textContent = tambahanWaste.toFixed(2);
     document.getElementById("hasilTotal").textContent = totalHotmix.toFixed(2);
